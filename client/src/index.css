@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 7%);
+  --foreground: hsl(0, 0%, 100%);
+  --muted: hsl(240, 10%, 15%);
+  --muted-foreground: hsl(240, 5%, 70%);
+  --popover: hsl(240, 10%, 12%);
+  --popover-foreground: hsl(0, 0%, 100%);
+  --card: hsl(240, 10%, 12%);
+  --card-foreground: hsl(0, 0%, 100%);
+  --border: hsl(240, 6%, 17%);
+  --input: hsl(240, 6%, 17%);
+  --primary: hsl(237, 49%, 58%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 10%, 15%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(174, 97%, 39%);
+  --accent-foreground: hsl(240, 10%, 12%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --success: hsl(142, 100%, 39%);
+  --success-foreground: hsl(0, 0%, 100%);
+  --warning: hsl(0, 84%, 60%);
+  --warning-foreground: hsl(0, 0%, 100%);
+  --ring: hsl(237, 49%, 58%);
+  --radius: 0.5rem;
+  
+  /* Custom OrbitalPay Colors */
+  --deep-charcoal: hsl(0, 0%, 7%);
+  --dark-navy: hsl(240, 10%, 12%);
+  --slate-blue: hsl(237, 49%, 58%);
+  --teal-mint: hsl(174, 97%, 39%);
+  --soft-gray: hsl(240, 5%, 70%);
+  --success-green: hsl(142, 100%, 39%);
+  --warning-red: hsl(0, 84%, 60%);
+  --border-dark: hsl(240, 6%, 17%);
+}
+
+.dark {
+  --background: hsl(0, 0%, 7%);
+  --foreground: hsl(0, 0%, 100%);
+  --muted: hsl(240, 10%, 15%);
+  --muted-foreground: hsl(240, 5%, 70%);
+  --popover: hsl(240, 10%, 12%);
+  --popover-foreground: hsl(0, 0%, 100%);
+  --card: hsl(240, 10%, 12%);
+  --card-foreground: hsl(0, 0%, 100%);
+  --border: hsl(240, 6%, 17%);
+  --input: hsl(240, 6%, 17%);
+  --primary: hsl(237, 49%, 58%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 10%, 15%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(174, 97%, 39%);
+  --accent-foreground: hsl(240, 10%, 12%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --ring: hsl(237, 49%, 58%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-[Inter] antialiased;
+  }
+
+  html {
+    @apply dark;
+  }
+}
+
+@layer components {
+  .crypto-bg-1 {
+    background-image: linear-gradient(rgba(18,18,18,0.7), rgba(18,18,18,0.7)), url('https://images.unsplash.com/photo-1605792657660-596af9009e82?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+  }
+  
+  .crypto-bg-2 {
+    background-image: linear-gradient(rgba(18,18,18,0.7), rgba(18,18,18,0.7)), url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+  }
+  
+  .crypto-bg-3 {
+    background-image: linear-gradient(rgba(18,18,18,0.7), rgba(18,18,18,0.7)), url('https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+  }
+  
+  .crypto-bg-4 {
+    background-image: linear-gradient(rgba(18,18,18,0.7), rgba(18,18,18,0.7)), url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80');
+  }
+  
+  .gradient-text {
+    background: linear-gradient(90deg, hsl(237, 49%, 58%), hsl(174, 97%, 39%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .gradient-button {
+    background: linear-gradient(90deg, hsl(237, 49%, 58%), hsl(174, 97%, 39%));
+  }
+  
+  .gradient-button:hover {
+    background: linear-gradient(90deg, hsl(237, 49%, 46%), hsl(174, 97%, 35%));
+  }
+}
+
+@layer utilities {
+  .text-deep-charcoal {
+    color: hsl(0, 0%, 7%);
+  }
+  
+  .text-dark-navy {
+    color: hsl(240, 10%, 12%);
+  }
+  
+  .text-slate-blue {
+    color: hsl(237, 49%, 58%);
+  }
+  
+  .text-teal-mint {
+    color: hsl(174, 97%, 39%);
+  }
+  
+  .text-soft-gray {
+    color: hsl(240, 5%, 70%);
+  }
+  
+  .text-success-green {
+    color: hsl(142, 100%, 39%);
+  }
+  
+  .text-warning-red {
+    color: hsl(0, 84%, 60%);
+  }
+  
+  .bg-deep-charcoal {
+    background-color: hsl(0, 0%, 7%);
+  }
+  
+  .bg-dark-navy {
+    background-color: hsl(240, 10%, 12%);
+  }
+  
+  .bg-slate-blue {
+    background-color: hsl(237, 49%, 58%);
+  }
+  
+  .bg-teal-mint {
+    background-color: hsl(174, 97%, 39%);
+  }
+  
+  .bg-success-green {
+    background-color: hsl(142, 100%, 39%);
+  }
+  
+  .bg-warning-red {
+    background-color: hsl(0, 84%, 60%);
+  }
+  
+  .border-border-dark {
+    border-color: hsl(240, 6%, 17%);
+  }
+}
