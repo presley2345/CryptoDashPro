@@ -47,6 +47,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const checkAuth = async () => {
     try {
+      // Check if Appwrite is properly configured
+      if (!import.meta.env.VITE_APPWRITE_ENDPOINT || !import.meta.env.VITE_APPWRITE_PROJECT_ID) {
+        console.warn('Appwrite configuration missing. Skipping authentication check.');
+        setLoading(false);
+        return;
+      }
+
       const session = await account.get();
       if (session) {
         const userData = await databases.getDocument(
@@ -56,8 +63,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         );
         setUser(userData as unknown as User);
       }
-    } catch (error) {
-      // User not logged in
+    } catch (error: any) {
+      console.log('Authentication check failed:', error.message);
+      // Clear any invalid session data
+      setUser(null);
+      
+      // If it's a network error, we might want to retry
+      if (error.code === 'network' || error.message?.includes('Failed to fetch')) {
+        console.warn('Network error during authentication. This might be due to missing Appwrite configuration.');
+      }
     } finally {
       setLoading(false);
     }
@@ -65,15 +79,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (email: string, password: string) => {
     try {
+      if (!import.meta.env.VITE_APPWRITE_ENDPOINT || !import.meta.env.VITE_APPWRITE_PROJECT_ID) {
+        throw new Error('Appwrite configuration is missing. Please check your environment variables.');
+      }
+      
       await account.createEmailPasswordSession(email, password);
       await checkAuth();
-    } catch (error) {
+    } catch (error: any) {
+      console.error('Login failed:', error);
+      if (error.message?.includes('Failed to fetch')) {
+        throw new Error('Unable to connect to authentication service. Please check your internet connection.');
+      }
       throw error;
     }
   };
 
   const register = async (userData: any) => {
     try {
+      if (!import.meta.env.VITE_APPWRITE_ENDPOINT || !import.meta.env.VITE_APPWRITE_PROJECT_ID) {
+        throw new Error('Appwrite configuration is missing. Please check your environment variables.');
+      }
+      
       const { email, password, firstName, lastName, phone, country, currency } = userData;
       
       // Create account
@@ -103,17 +129,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       // Login after registration
       await login(email, password);
-    } catch (error) {
+    } catch (error: any) {
+      console.error('Registration failed:', error);
+      if (error.message?.includes('Failed to fetch')) {
+        throw new Error('Unable to connect to authentication service. Please check your internet connection.');
+      }
       throw error;
     }
   };
 
   const logout = async () => {
     try {
-      await account.deleteSession('current');
+      if (import.meta.env.VITE_APPWRITE_ENDPOINT && import.meta.env.VITE_APPWRITE_PROJECT_ID) {
+        await account.deleteSession('current');
+      }
       setUser(null);
-    } catch (error) {
-      throw error;
+    } catch (error: any) {
+      console.error('Logout failed:', error);
+      // Always clear user state even if logout fails
+      setUser(null);
+      if (error.message?.includes('Failed to fetch')) {
+        console.warn('Network error during logout, but user state has been cleared.');
+      }
     }
   };
 

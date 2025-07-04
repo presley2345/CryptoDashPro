@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
+import { isAppwriteConfigured } from "@/lib/appwrite";
 
 // Pages
 import { LandingPage } from "@/pages/LandingPage";
@@ -37,6 +38,12 @@ function Router() {
 }
 
 function App() {
+  // Check configuration on app start
+  if (!isAppwriteConfigured()) {
+    console.warn('⚠️  Appwrite is not fully configured. Please check your environment variables.');
+    console.warn('📝 Copy .env.example to .env and fill in your Appwrite credentials.');
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
