@@ -38,8 +38,14 @@ export function WithdrawalPage() {
       });
       
       // Open customer care
-      if (window.smartsupp) {
-        window.smartsupp('chat:open');
+      try {
+        if (window.smartsupp && typeof window.smartsupp === 'function') {
+          window.smartsupp('chat:open');
+        } else {
+          console.warn('Smartsupp chat not available');
+        }
+      } catch (error) {
+        console.error('Failed to open Smartsupp chat:', error);
       }
     } catch (error: any) {
       toast({
@@ -53,8 +59,24 @@ export function WithdrawalPage() {
   };
 
   const handleCustomerCare = () => {
-    if (window.smartsupp) {
-      window.smartsupp('chat:open');
+    try {
+      if (window.smartsupp && typeof window.smartsupp === 'function') {
+        window.smartsupp('chat:open');
+      } else {
+        console.warn('Smartsupp chat not available');
+        toast({
+          title: "Chat unavailable",
+          description: "Customer support chat is currently unavailable. Please try again later.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      console.error('Failed to open Smartsupp chat:', error);
+      toast({
+        title: "Error",
+        description: "Unable to open customer support chat.",
+        variant: "destructive"
+      });
     }
   };
 
